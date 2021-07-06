@@ -8,8 +8,22 @@ class Person
   def get_married(person)
     self.partner = person
     person.partner = self
+    if person.class != Person
+      begin 
+      raise PersonError 
+    rescue PartnerError => error 
+      puts error.message 
+    end 
+  else 
+    person.partner = self 
+  end 
   end
 
+  class PartnerError<StandardError
+    def message
+      puts "the argument you put in for the person, is not an instance of the Person class"
+    end 
+  end 
 end
 
 beyonce = Person.new("Beyonce")
